@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		BBE3E9521B612BE5003A0185 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9511B612BE5003A0185 /* AppDelegate.swift */; };
-		BBE3E9541B612BE5003A0185 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9531B612BE5003A0185 /* MasterViewController.swift */; };
-		BBE3E9561B612BE5003A0185 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9551B612BE5003A0185 /* DetailViewController.swift */; };
+		BBE3E9541B612BE5003A0185 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9531B612BE5003A0185 /* TweetsViewController.swift */; };
 		BBE3E9591B612BE5003A0185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBE3E9571B612BE5003A0185 /* Main.storyboard */; };
 		BBE3E95B1B612BE5003A0185 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBE3E95A1B612BE5003A0185 /* Images.xcassets */; };
 		BBE3E95E1B612BE5003A0185 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE3E95C1B612BE5003A0185 /* LaunchScreen.xib */; };
 		BBE3E96A1B612BE6003A0185 /* FindTweetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9691B612BE6003A0185 /* FindTweetsTests.swift */; };
+		BBE3E9741B612C7E003A0185 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9731B612C7E003A0185 /* ViewController.swift */; };
+		BBE3E9761B612D68003A0185 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE3E9751B612D68003A0185 /* Social.framework */; };
+		BBE3E9781B612D6E003A0185 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE3E9771B612D6E003A0185 /* Accounts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,14 +32,16 @@
 		BBE3E94C1B612BE5003A0185 /* FindTweets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTweets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBE3E9501B612BE5003A0185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBE3E9511B612BE5003A0185 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BBE3E9531B612BE5003A0185 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		BBE3E9551B612BE5003A0185 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		BBE3E9531B612BE5003A0185 /* TweetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		BBE3E9581B612BE5003A0185 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BBE3E95A1B612BE5003A0185 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBE3E95D1B612BE5003A0185 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BBE3E9631B612BE5003A0185 /* FindTweetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindTweetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBE3E9681B612BE6003A0185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBE3E9691B612BE6003A0185 /* FindTweetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTweetsTests.swift; sourceTree = "<group>"; };
+		BBE3E9731B612C7E003A0185 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BBE3E9751B612D68003A0185 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		BBE3E9771B612D6E003A0185 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBE3E9781B612D6E003A0185 /* Accounts.framework in Frameworks */,
+				BBE3E9761B612D68003A0185 /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +67,8 @@
 		BBE3E9431B612BE5003A0185 = {
 			isa = PBXGroup;
 			children = (
+				BBE3E9771B612D6E003A0185 /* Accounts.framework */,
+				BBE3E9751B612D68003A0185 /* Social.framework */,
 				BBE3E94E1B612BE5003A0185 /* FindTweets */,
 				BBE3E9661B612BE5003A0185 /* FindTweetsTests */,
 				BBE3E94D1B612BE5003A0185 /* Products */,
@@ -80,8 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				BBE3E9511B612BE5003A0185 /* AppDelegate.swift */,
-				BBE3E9531B612BE5003A0185 /* MasterViewController.swift */,
-				BBE3E9551B612BE5003A0185 /* DetailViewController.swift */,
+				BBE3E9531B612BE5003A0185 /* TweetsViewController.swift */,
+				BBE3E9731B612C7E003A0185 /* ViewController.swift */,
 				BBE3E9571B612BE5003A0185 /* Main.storyboard */,
 				BBE3E95A1B612BE5003A0185 /* Images.xcassets */,
 				BBE3E95C1B612BE5003A0185 /* LaunchScreen.xib */,
@@ -215,8 +223,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBE3E9561B612BE5003A0185 /* DetailViewController.swift in Sources */,
-				BBE3E9541B612BE5003A0185 /* MasterViewController.swift in Sources */,
+				BBE3E9741B612C7E003A0185 /* ViewController.swift in Sources */,
+				BBE3E9541B612BE5003A0185 /* TweetsViewController.swift in Sources */,
 				BBE3E9521B612BE5003A0185 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
