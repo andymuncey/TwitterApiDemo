@@ -12,87 +12,102 @@ import Accounts
 
 class ViewController : UIViewController{
     
+    //used to store the tweets once we have retrieved them
     var tweets = Array<Dictionary<String,AnyObject>>()
     
     @IBOutlet weak var searchTermTextField: UITextField!
     
     @IBAction func searchPressed(sender: UIButton) {
         
-        
-        sender.addSubview(UIActivityIndicatorView())
-        
+        //access the account store
         var accountStore = ACAccountStore()
         
+        //variable for the appropriate type of account
         var twitterAccountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
         
+        //request access to the account (iOS will prompt the user)
         accountStore.requestAccessToAccountsWithType(twitterAccountType, options: nil, completion: { (success: Bool, error:NSError!) -> Void in
             
+            //assuming we are granted access by the user
             if success {
                 
+                //get all the twitter accounts
                 var accounts = accountStore.accountsWithAccountType(twitterAccountType)
                 
                 //assuming there is an account (a better approach would be to ask the user which one if multiple accounts)
                 if accounts.count > 0{
                     
-                    
+                    //create a url pointing to the API
                     var url = NSURL(string: "https://api.twitter.com/1.1/search/tweets.json")
                     
+                    //set the parameters for the API request (in this case q for a search)
                     let parameters = ["q" : self.searchTermTextField.text]
                     
+                    //create a request
                     var request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: parameters)
-                    
+                    //set the account for the request
                     request.account = accounts.last as! ACAccount
                     
+                    //make the request
                     request.performRequestWithHandler({ (responseData, urlResponse, error) -> Void in
                         
-                        if responseData != nil{
-                            
-                            if urlResponse.statusCode >= 200 && urlResponse.statusCode < 300{
-                                //got an 'OK' response
-                                
-                                var jsonError = NSErrorPointer()
-                                
-                                let jsonData : AnyObject? = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments, error: jsonError)
-                                
-                                if let result = jsonData as? Dictionary<String,AnyObject>{
-                                    
-                                    self.tweets = result["statuses"] as! Array<Dictionary<String,AnyObject>>
-                                    
-                                    
-                                    dispatch_async(dispatch_get_main_queue()) {
-                                        self.performSegueWithIdentifier("tweetsTable", sender: self)
-                                        }
-                                }
-                                
-                                
-                            }
-                            
-                        }
-                        
-                        
+                        //something has gone wrong with the request. probably should tell user
                         if let err = error {
                             print("\(err.localizedDescription)")
                         }
                         
-                        
-                        
+                        //if we get a response
+                        if responseData != nil{
+                            
+                            //and the response is OK
+                            if urlResponse.statusCode >= 200 && urlResponse.statusCode < 300{
+                               
+                                //deserialise the data
+                                var jsonError = NSErrorPointer()
+                                let jsonData : AnyObject? = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments, error: jsonError)
+                                
+                                //the API tells us that the data will be a dictionary, where the keys are strings
+                                if let result = jsonData as? Dictionary<String,AnyObject>{
+                                    
+                                    //the API also tells us that the tweets will be an array in the dictionary
+                                    //with the key 'statuses'
+                                    self.tweets = result["statuses"] as! Array<Dictionary<String,AnyObject>>
+                                    
+                                    //go back to the main thread and perform a segue to view results
+                                    dispatch_async(dispatch_get_main_queue()) {
+                                        self.performSegueWithIdentifier("tweetsTable", sender: self)
+                                        }
+                                }
+                            }
+                            else{
+                                //http resonse error - log code
+                                println("HTTP error: \(urlResponse.description)")
+                            }
+                        }
+                        else{
+                            //no response data - possible problem with twitter
+                            println("No response data")
+                        }
                     })
-                    
+                }
+                else{
+                    //no twitter accounts set up - probably should tell the user
+                    println("No accounts configured on the device")
                 }
             }
-            
-            
+            else{
+                //not granted access - probably should tell the user that the app wont work without access
+                //and how they can grant access in settings
+                println("Access to twitter accounts denied by user")
+            }
         })
-
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     var table = segue.destinationViewController as! TweetsViewController
-        
+    
+        //pass the data to the table view controller so it can display tweets
         table.tweets = self.tweets
         table.title = self.searchTermTextField.text
-        
     }
-    
 }
