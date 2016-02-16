@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  
+//
 //
 //  Created by Andrew Muncey on 23/07/2015.
 //
@@ -19,6 +19,11 @@ class ViewController : UIViewController{
     
     @IBAction func searchPressed(sender: UIButton) {
         
+        if searchTermTextField.text?.characters.count == 0 {
+            self.errorAlertWithMessage("Please enter a search term")
+            return
+        }
+        
         //access the account store
         let accountStore = ACAccountStore()
         
@@ -27,55 +32,56 @@ class ViewController : UIViewController{
         
         //request access to the account (iOS will prompt the user)
         accountStore.requestAccessToAccountsWithType(twitterAccountType, options: nil, completion: { (success: Bool, error:NSError!) -> Void in
-
+            
             if (!success) {
-                //not granted access - probably should tell the user that the app wont work without access
-                //and how they can grant access in settings
-                print("Access to twitter accounts denied by user")
+                //not granted access due to privacy settings
+                self.errorAlertWithMessage("You have denied this app access to Twitter, please enable access in Settings -> Privacy")
                 return
             }
-
+            
             //get all the twitter accounts
             let accounts = accountStore.accountsWithAccountType(twitterAccountType)
-
+            
             if accounts.count == 0 {
-                //no twitter accounts set up - probably should tell the user
-                print("No accounts configured on the device")
+                //no twitter accounts set up
+                self.errorAlertWithMessage("There are no Twitter accounts setup on this device")
                 return
             }
-
+            
             //create a url pointing to the API
             let url = NSURL(string: "https://api.twitter.com/1.1/search/tweets.json")
-
+            
             //set the parameters for the API request (in this case q for a search)
             let parameters = ["q" : self.searchTermTextField.text as String!]
-                    
+            
             //create a request
             let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: parameters)
             //set the account for the request
             request.account = accounts.last as! ACAccount
-
+            
             //make the request
             request.performRequestWithHandler({ (responseData, urlResponse, error) -> Void in
-                        
+                
                 //something has gone wrong with the request. probably should tell user
                 if let err = error {
+                    self.errorAlertWithMessage("Sorry, there seems to be a problem, please try again later")
                     print("\(err.localizedDescription)", terminator: "")
                     return
                 }
-
+                
                 if responseData == nil {
                     //no response data - possible problem with twitter
-                    print("No response data")
+                    self.errorAlertWithMessage("Sorry, Twitter does not seem to be responding at present")
                     return
                 }
-
+                
                 if urlResponse.statusCode < 200 || urlResponse.statusCode >= 300{
                     //http resonse error - log code
+                    self.errorAlertWithMessage("Sorry, there seems to be a problem")
                     print("HTTP error: \(urlResponse.description)")
                     return
                 }
-
+                
                 //deserialise the data
                 let jsonError = NSErrorPointer()
                 let jsonData : AnyObject?
@@ -87,14 +93,14 @@ class ViewController : UIViewController{
                 } catch {
                     fatalError()
                 }
-                                
+                
                 //the API tells us that the data will be a dictionary, where the keys are strings
                 if let result = jsonData as? Dictionary<String,AnyObject>{
-                                    
+                    
                     //the API also tells us that the tweets will be an array in the dictionary
                     //with the key 'statuses'
                     self.tweets = result["statuses"] as! Array<Dictionary<String,AnyObject>>
-
+                    
                     //go back to the main thread and perform a segue to view results
                     dispatch_async(dispatch_get_main_queue()) {
                         self.performSegueWithIdentifier("tweetsTable", sender: self)
@@ -104,9 +110,20 @@ class ViewController : UIViewController{
         })
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let table = segue.destinationViewController as! TweetsViewController
+    func errorAlertWithMessage(message: String){
+        
+        let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: nil))
+        dispatch_async(dispatch_get_main_queue(),
+            {
+                self.presentViewController(errorAlert, animated: true, completion: nil)
+        })
+        
+    }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let table = segue.destinationViewController as! TweetsViewController
+        
         //pass the data to the table view controller so it can display tweets
         table.tweets = self.tweets
         table.title = self.searchTermTextField.text
