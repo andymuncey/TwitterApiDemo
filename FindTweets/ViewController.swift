@@ -1,14 +1,5 @@
-//
-//  ViewController.swift
-//
-//
-//  Created by Andrew Muncey on 23/07/2015.
-//
-//
-
 import UIKit
-import Social
-import Accounts
+import TwitterKit
 
 class ViewController : UIViewController{
     
@@ -17,69 +8,72 @@ class ViewController : UIViewController{
     
     @IBOutlet weak var searchTermTextField: UITextField!
     
+    var loginButton : TWTRLogInButton?
+
+    override func viewDidAppear(_ animated: Bool) {
+        if Twitter.sharedInstance().sessionStore.session() == nil {
+            loginButton = TWTRLogInButton { (session, error) in
+                if (session != nil) {
+                    print("logged in as \(session!.userName)")
+                    
+                }else {
+                    print(error!.localizedDescription)
+                }
+            }
+            
+            loginButton!.center = view.center
+            
+            view.addSubview(loginButton!)
+        } else {
+                loginButton?.removeFromSuperview()
+        }
+    }
+    
     @IBAction func searchPressed(_ sender: UIButton) {
         
         if searchTermTextField.text?.characters.count == 0 {
-            self.errorAlertWithMessage("Please enter a search term")
+            errorAlert(message: "Please enter a search term")
             return
         }
         
-        //access the account store
-        let accountStore = ACAccountStore()
         
-        //variable for the appropriate type of account
-        let twitterAccountType = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierTwitter)
-        
-        //request access to the account (iOS will prompt the user)
-        accountStore.requestAccessToAccounts(with: twitterAccountType, options: nil, completion: { (success, error) -> Void in
+        if let twitterAccountId = Twitter.sharedInstance().sessionStore.session()?.userID {
+            let client = TWTRAPIClient(userID: twitterAccountId)
             
-            if (!success) {
-                //not granted access due to privacy settings
-                self.errorAlertWithMessage("You have denied this app access to Twitter, please enable access in Settings -> Privacy")
-                return
-            }
-
-            //get all the twitter accounts
-            let accounts = accountStore.accounts(with: twitterAccountType)
-            
-            if accounts?.count == 0 {
-                //no twitter accounts set up
-                self.errorAlertWithMessage("There are no Twitter accounts setup on this device")
-                return
-            }
-            
-            //create a url pointing to the API
-            let url : URL = URL(string: "https://api.twitter.com/1.1/search/tweets.json")!
+            //create a url pointing to appropriate part of the API
+            let url = "https://api.twitter.com/1.1/search/tweets.json"
             
             //set the parameters for the API request (in this case q for a search)
-            let parameters = ["q" : self.searchTermTextField!.text!]
+            let params = ["q" : self.searchTermTextField!.text!]
+            
+            var clientError : NSError?
             
             //create a request
-            let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, url: url, parameters: parameters)
-            //set the account for the request
-            request?.account = accounts?.last as! ACAccount
-
-            //make the request
-            request?.perform(handler: { (responseData, urlResponse, error) -> Void in
+            let request = client.urlRequest(withMethod: "GET", url: url, parameters: params, error: &clientError)
             
+            //make the request
+            client.sendTwitterRequest(request) { (response, responseData, error) -> Void in
+                
                 //something has gone wrong with the request. probably should tell user
                 if let err = error {
-                    self.errorAlertWithMessage("Sorry, there seems to be a problem, please try again later")
+                    self.errorAlert(message: "Sorry, there seems to be a problem, please try again later")
                     print("\(err.localizedDescription)", terminator: "")
                     return
                 }
                 
                 if responseData == nil {
                     //no response data - possible problem with twitter
-                    self.errorAlertWithMessage("Sorry, Twitter does not seem to be responding at present")
+                    self.errorAlert(message:"Sorry, Twitter does not seem to be responding at present")
                     return
                 }
                 
-                if urlResponse!.statusCode < 200 || urlResponse!.statusCode >= 300{
-                    //http resonse error - log code
-                    self.errorAlertWithMessage("Sorry, there seems to be a problem")
-                    print("HTTP error: \(urlResponse!.description)")
-                    return
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode < 200 || httpResponse.statusCode >= 300{
+                        //http resonse error - log code
+                        self.errorAlert(message:"Sorry, there seems to be a problem")
+                        print("HTTP error: \(response!.description)")
+                        return
+                    }
                 }
                 
                 //deserialise the data
@@ -105,18 +99,17 @@ class ViewController : UIViewController{
                         self.performSegue(withIdentifier: "tweetsTable", sender: self)
                     }
                 }
-            })
-        })
+            }
+        }
     }
     
-    func errorAlertWithMessage(_ message: String){
+    func errorAlert(message: String){
         
         let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
         errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil))
         DispatchQueue.main.async(execute: {
-                self.present(errorAlert, animated: true, completion: nil)
+            self.present(errorAlert, animated: true, completion: nil)
         })
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -126,4 +119,8 @@ class ViewController : UIViewController{
         table.tweets = self.tweets
         table.title = self.searchTermTextField.text
     }
+    
 }
+
+
+

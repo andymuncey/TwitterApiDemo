@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49FD02781FAC91450006F343 /* TwitterShareExtensionUIResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49FD02741FAC91430006F343 /* TwitterShareExtensionUIResources.bundle */; };
+		49FD02791FAC91450006F343 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49FD02751FAC91430006F343 /* TwitterKitResources.bundle */; };
+		49FD027A1FAC91450006F343 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FD02761FAC91430006F343 /* TwitterCore.framework */; };
+		49FD02821FAC95B70006F343 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FD027E1FAC959F0006F343 /* SafariServices.framework */; };
+		49FD02841FAC980D0006F343 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49FD02831FAC980D0006F343 /* TwitterKit.framework */; };
 		BBE3E9521B612BE5003A0185 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9511B612BE5003A0185 /* AppDelegate.swift */; };
 		BBE3E9541B612BE5003A0185 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9531B612BE5003A0185 /* TweetsViewController.swift */; };
 		BBE3E9591B612BE5003A0185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBE3E9571B612BE5003A0185 /* Main.storyboard */; };
@@ -14,8 +19,6 @@
 		BBE3E95E1B612BE5003A0185 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE3E95C1B612BE5003A0185 /* LaunchScreen.xib */; };
 		BBE3E96A1B612BE6003A0185 /* FindTweetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9691B612BE6003A0185 /* FindTweetsTests.swift */; };
 		BBE3E9741B612C7E003A0185 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E9731B612C7E003A0185 /* ViewController.swift */; };
-		BBE3E9761B612D68003A0185 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE3E9751B612D68003A0185 /* Social.framework */; };
-		BBE3E9781B612D6E003A0185 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE3E9771B612D6E003A0185 /* Accounts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +31,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		49FD02811FAC95AE0006F343 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		49FD02741FAC91430006F343 /* TwitterShareExtensionUIResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterShareExtensionUIResources.bundle; sourceTree = "<group>"; };
+		49FD02751FAC91430006F343 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
+		49FD02761FAC91430006F343 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		49FD027C1FAC915B0006F343 /* TwitterKitDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TwitterKitDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		49FD027E1FAC959F0006F343 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		49FD02831FAC980D0006F343 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		BBE3E94C1B612BE5003A0185 /* FindTweets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindTweets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBE3E9501B612BE5003A0185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBE3E9511B612BE5003A0185 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,8 +62,6 @@
 		BBE3E9681B612BE6003A0185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBE3E9691B612BE6003A0185 /* FindTweetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindTweetsTests.swift; sourceTree = "<group>"; };
 		BBE3E9731B612C7E003A0185 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BBE3E9751B612D68003A0185 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		BBE3E9771B612D6E003A0185 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,8 +69,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBE3E9781B612D6E003A0185 /* Accounts.framework in Frameworks */,
-				BBE3E9761B612D68003A0185 /* Social.framework in Frameworks */,
+				49FD02821FAC95B70006F343 /* SafariServices.framework in Frameworks */,
+				49FD027A1FAC91450006F343 /* TwitterCore.framework in Frameworks */,
+				49FD02841FAC980D0006F343 /* TwitterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,14 +85,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49FD027D1FAC959F0006F343 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49FD027E1FAC959F0006F343 /* SafariServices.framework */,
+				49FD02831FAC980D0006F343 /* TwitterKit.framework */,
+				49FD02761FAC91430006F343 /* TwitterCore.framework */,
+				49FD02751FAC91430006F343 /* TwitterKitResources.bundle */,
+				49FD02741FAC91430006F343 /* TwitterShareExtensionUIResources.bundle */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BBE3E9431B612BE5003A0185 = {
 			isa = PBXGroup;
 			children = (
-				BBE3E9771B612D6E003A0185 /* Accounts.framework */,
-				BBE3E9751B612D68003A0185 /* Social.framework */,
 				BBE3E94E1B612BE5003A0185 /* FindTweets */,
 				BBE3E9661B612BE5003A0185 /* FindTweetsTests */,
 				BBE3E94D1B612BE5003A0185 /* Products */,
+				49FD027D1FAC959F0006F343 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +119,7 @@
 		BBE3E94E1B612BE5003A0185 /* FindTweets */ = {
 			isa = PBXGroup;
 			children = (
+				49FD027C1FAC915B0006F343 /* TwitterKitDemo-Bridging-Header.h */,
 				BBE3E9511B612BE5003A0185 /* AppDelegate.swift */,
 				BBE3E9531B612BE5003A0185 /* TweetsViewController.swift */,
 				BBE3E9731B612C7E003A0185 /* ViewController.swift */,
@@ -133,6 +166,7 @@
 				BBE3E9481B612BE5003A0185 /* Sources */,
 				BBE3E9491B612BE5003A0185 /* Frameworks */,
 				BBE3E94A1B612BE5003A0185 /* Resources */,
+				49FD02811FAC95AE0006F343 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,11 +208,11 @@
 				TargetAttributes = {
 					BBE3E94B1B612BE5003A0185 = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					BBE3E9621B612BE5003A0185 = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 						TestTargetID = BBE3E94B1B612BE5003A0185;
 					};
 				};
@@ -210,6 +244,8 @@
 				BBE3E9591B612BE5003A0185 /* Main.storyboard in Resources */,
 				BBE3E95E1B612BE5003A0185 /* LaunchScreen.xib in Resources */,
 				BBE3E95B1B612BE5003A0185 /* Images.xcassets in Resources */,
+				49FD02781FAC91450006F343 /* TwitterShareExtensionUIResources.bundle in Resources */,
+				49FD02791FAC91450006F343 /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +351,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -354,6 +392,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -364,12 +404,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = FindTweets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.chester.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -379,12 +421,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FindTweets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.chester.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -392,10 +439,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -404,7 +448,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.chester.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FindTweets.app/FindTweets";
 			};
 			name = Debug;
@@ -413,15 +458,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = FindTweetsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.chester.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FindTweets.app/FindTweets";
 			};
 			name = Release;
